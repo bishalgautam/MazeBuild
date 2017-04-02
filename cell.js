@@ -8,19 +8,71 @@
 
 function Cell(i,j){
 	
-	this.i = i;
-	this.j = j;
+	this.i = i; //column 
+	this.j = j; // row 
 
-	this.walls = [true, true, true, true]; // four walls [TOP, RIGHT, BOTTOM , LEFT]
-	this.visited = false;	// intially set to not visited
+	this.walls = [true, true, true, true]; // four walls [TOP, RIGHT, BOTTOM , LEFT].
+	this.visited = false;	// intially set to not visited.
+	this.path = false; // initially does not lie in our path.
+
+
+    // getnextPath while solving the problem.
+	this.nextPath = function(){
+		var paths = [];
+
+		var top = grid[getIndex(i, j-1)];
+		var right = grid[getIndex(i+1, j)];
+		var bottom = grid[getIndex(i, j+1)];
+		var left = grid[getIndex(i-1, j)];
+
+		// console.log(top);
+		// console.log(right);
+		// console.log(bottom);
+		// console.log(left);
+
+		// var top = grid[getIndex(i-1, j)];
+		// var right = grid[getIndex(i, j+1)];
+		// var bottom = grid[getIndex(i+1, j)];
+		// var left = grid[getIndex(i, j-1)];
+
+
+		if(top && top.visited && !top.path){
+			if(!top.walls[2] && !this.walls[0]){
+				paths.push(top);
+			}
+		}
+		if(right && right.visited && !right.path){
+			if(!right.walls[3] && !this.walls[1]){
+				paths.push(right);
+			}
+		}
+		if(bottom && bottom.visited && !bottom.path){
+			if(!bottom.walls[0] && !this.walls[2]){
+				paths.push(bottom);
+			}
+		}
+		if(left && left.visited && !left.path){
+			if(!left.walls[1] && !this.walls[3]){
+				paths.push(left);
+			}
+		}
+
+		if(paths.length > 0){
+			var r = floor(random(0, paths.length));
+			return paths[r];
+		}else{
+			return undefined;
+		}
+
+	}
 
 	this.findNeighbours = function(){
 		var neighbors = [] ;
 
-		var top = grid[getIndex(i-1, j)];
-		var right = grid[getIndex(i, j+1)];
-		var bottom = grid[getIndex(i+1, j)];
-		var left = grid[getIndex(i, j-1)];
+		var top = grid[getIndex(i, j-1)];
+		var right = grid[getIndex(i+1, j)];
+		var bottom = grid[getIndex(i, j+1)];
+		var left = grid[getIndex(i-1, j)];
 
 		if (top && !top.visited) {
 	      neighbors.push(top);
@@ -75,13 +127,20 @@ function Cell(i,j){
 		      fill(255, 0, 255, 100);
 		      rect(x, y, width_cell, width_cell);
     	}
+
+    	if(this.path) {
+    		noStroke();
+    		//clear();
+    		fill(255,255,0, 100);
+    		rect(x, y, width_cell, width_cell);
+    	}
 	}
 
-	this.highlight = function() {
+	this.highlight = function(red, green, blue, hue) {
     var x = this.i*width_cell;
     var y = this.j*width_cell;
     noStroke();
-    fill(0, 0, 255, 100);
+    fill(red, green, blue, hue);
     rect(x, y, width_cell, width_cell);
 
   }
