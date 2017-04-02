@@ -13,10 +13,13 @@ function Cell(i,j){
 
 	this.walls = [true, true, true, true]; // four walls [TOP, RIGHT, BOTTOM , LEFT].
 	this.visited = false;	// intially set to not visited.
-	this.path = false; // initially does not lie in our path.
+	this.path = false; // variable to track the path ; initially does not lie in our path.
 
 
     // getnextPath while solving the problem.
+    /*
+	 * returns a possible next path when solving the maze.
+    */
 	this.nextPath = function(){
 		var paths = [];
 
@@ -24,16 +27,6 @@ function Cell(i,j){
 		var right = grid[getIndex(i+1, j)];
 		var bottom = grid[getIndex(i, j+1)];
 		var left = grid[getIndex(i-1, j)];
-
-		// console.log(top);
-		// console.log(right);
-		// console.log(bottom);
-		// console.log(left);
-
-		// var top = grid[getIndex(i-1, j)];
-		// var right = grid[getIndex(i, j+1)];
-		// var bottom = grid[getIndex(i+1, j)];
-		// var left = grid[getIndex(i, j-1)];
 
 
 		if(top && top.visited && !top.path){
@@ -66,6 +59,9 @@ function Cell(i,j){
 
 	}
 
+	/* 
+	 *  returns the unvisited neighbour when creating the maze.
+	*/
 	this.findNeighbours = function(){
 		var neighbors = [] ;
 
@@ -127,10 +123,9 @@ function Cell(i,j){
 		      fill(255, 0, 255, 100);
 		      rect(x, y, width_cell, width_cell);
     	}
-
+    	// if path exists; only runs when we solve the maze;
     	if(this.path) {
     		noStroke();
-    		//clear();
     		fill(255,255,0, 100);
     		rect(x, y, width_cell, width_cell);
     	}

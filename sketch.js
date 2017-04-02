@@ -41,7 +41,7 @@ var route = []; // A stack for sloving the maze.
 
 var currentPath;
 
-
+// Intial setup, it runs once after the page loads. 
 function setup() {
  createCanvas(cols*width_cell, cols*width_cell);
  
@@ -58,7 +58,7 @@ function setup() {
 }
 
 
-
+// it runs just after the setup function and will continues forever until stopped.
 function draw() {
   
    frameRate(10);
@@ -99,11 +99,11 @@ if(creation){
   
       creation  = false;
       solve = true;
-      console.log("inside");
+      //console.log("inside");
     
     }
 
-    console.log("loop");
+    //console.log("loop");
   }
     
 
@@ -179,7 +179,11 @@ if(solveInProgress){
 
   
  
-}
+}// draw() ends;
+
+
+/* Other functions  
+*/
 
 function infoText(message) {
   document.getElementById('title').textContent = message;
@@ -188,6 +192,7 @@ function infoText(message) {
 
 
 // function to get the cells in the 1D array using (row, colomn) indexes
+
 function getIndex(i, j){
 	if( i < 0 || j < 0 || i >=rows || j >= cols)
 		return -1;
@@ -195,6 +200,7 @@ function getIndex(i, j){
 }
 
 //function to remove the wall between the cells in the path while making the maze
+
 function removeWalls(current, next){
 	var x = current.i - next.i;
  	if(x === 1){
