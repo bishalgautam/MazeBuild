@@ -22,22 +22,25 @@ Maze Generation :
 */
 
 
-var cols, rows;
+var cols = 5;
+var rows = 5;
 var width_cell = 20;
 var grid = [];
-
+// const renderer = WEBGL;
+var init  = 1;
+//var unvisited = rows * cols;
 
 var current;
 
 var stack = []; // In this case we only need to push and remove using stack so an array is sufficient.
 
 function setup() {
- createCanvas(100, 100);
+ createCanvas(cols*width_cell, cols*width_cell);
  //background(153);
- cols =  floor(width/width_cell);
- rows = floor(height/width_cell);
+ // cols =  floor(width/width_cell);
+ // rows = floor(height/width_cell);
 
- frameRate(1);
+ //frameRate(5);
 
  for(var i=0; i < rows ; i++){
  	for(var j=0; j< cols; j++){
@@ -54,19 +57,25 @@ function setup() {
 
 function draw() {
   //ellipse(50, 50, 80, 80);
-    background(51);
+
+  
+  //frameRate(1);
+ //while(unvisited){
+   background(51);
    // //stroke(255);
    for(var i=0; i < grid.length ; i++){
    	 	grid[i].put();
    }
-// STEP 1
-    current.visited = true;
+	
+	// STEP 1
+	current.visited = true;
     current.highlight();
-
+    	
+    
     var next = current.findNeighbours();
-	console.log(next);
 
     if(next){
+    	
     	next.visited = true;
 
     	stack.push(current);
@@ -74,11 +83,33 @@ function draw() {
     	removeWalls(current, next);
 
     	current = next;
+    	
+    	// unvisited--;
+    	// if(!current.visited){
+    	// 	current.visited = true;
+    	// 	current.highlight();
+    	// 	--unvisited;
+    	// }
     }else if(stack.length > 0){
     	current = stack.pop();
     }
+    
+   if( current.i  ===0 && current.j === 0){
+    	//current.highlight();
+    	noLoop();
+    }
+  
 
+    	
 }
+
+function mousePressed() {
+  loop();
+}
+
+// function mouseReleased() {
+//   loop();
+// }
 
 // function to get the cells in the 1D array using (row, colomn) indexes
 function getIndex(i, j){
