@@ -22,13 +22,10 @@ Maze Generation :
 */
 
 
-var cols = 5;
-var rows = 5;
+var cols = 10;
+var rows = 10;
 var width_cell = 20;
 var grid = [];
-// const renderer = WEBGL;
-//var init  = 1;
-//var unvisited = rows * cols;
 
 var current;
 
@@ -40,17 +37,14 @@ var solve = false;
 var solveInProgress = false;
 var showPath = false; 
 
-var route = [];
+var route = []; // A stack for sloving the maze.
 
 var currentPath;
 
-//var i =0;
 
 function setup() {
  createCanvas(cols*width_cell, cols*width_cell);
- //background(153);
- // cols =  floor(width/width_cell);
- // rows = floor(height/width_cell);
+ 
 
  for(var i=0; i < rows ; i++){
  	for(var j=0; j< cols; j++){
@@ -66,13 +60,11 @@ function setup() {
 
 
 function draw() {
-  //ellipse(50, 50, 80, 80);
-
-   frameRate(5);
- //while(unvisited){
+  
+   frameRate(10);
 
    background(51);
-   // //stroke(255);
+
    for(var i=0; i < grid.length ; i++){
    	 	grid[i].put();
    }
@@ -99,22 +91,16 @@ if(creation){
 
     	current = next;
     	
-    	// unvisited--;
-    	// if(!current.visited){
-    	// 	current.visited = true;
-    	// 	current.highlight();
-    	// 	--unvisited;
-    	// }
     }else if(stack.length > 0){
     	current = stack.pop();
     }
-   // console.log(i);
+ 
    if( current.i  ===0 && current.j === 0){
-    	//current.highlight();
+  
       creation  = false;
       solve = true;
       console.log("inside");
-    	//noLoop();
+    
     }
 
     console.log("loop");
@@ -150,19 +136,17 @@ if(solveInProgress){
   end.highlight(255,0,0,100);
 
   var nextRoute = currentPath.nextPath();
-     // console.log(nextRoute);
+    
   if(nextRoute){
    
       nextRoute.path = true;
 
       route.push(currentPath);
-      //currentPath.highlight(255,255,255,100);
-
+  
       currentPath = nextRoute;
 
     if( currentPath.i  === end.i && currentPath.j === end.j ){
-      //current.highlight();
-     // creation  = false;
+     
       currentPath.put();
       route.push(currentPath);
       currentPath.highlight(255,255,255,100);
@@ -175,9 +159,8 @@ if(solveInProgress){
 
     }else if(route.length > 0){
       currentPath = route.pop();
-      //current.path = false;
+      
     }
-  //  console.log("inside solve");
   }
 
 
@@ -186,11 +169,7 @@ if(solveInProgress){
     while(route.length > 0){
 
       var pa = route.pop();
-      // textSize(32);
-      // text(str(route.size),pa.i*width_cell,pa.j*width_cell);
         noStroke();
-        //background(51);
-        //fill(0,0,0,100);
         fill('rgba(0,255,0, 0.25)');
         rect(pa.i*width_cell, pa.j*width_cell, width_cell, width_cell);
     }
@@ -216,7 +195,6 @@ function getIndex(i, j){
 }
 
 //function to remove the wall between the cells in the path while making the maze
-
 function removeWalls(current, next){
 	var x = current.i - next.i;
  	if(x === 1){
