@@ -67,7 +67,7 @@ function setup() {
 // it runs just after the setup function and will continues forever until stopped.
 function draw() {
   
-   frameRate(5); // It can be changes to get slower or faster rate of rendering. In my walk through video I am using 10. 
+   frameRate(15); // It can be changes to get slower or faster rate of rendering. In my walk through video I am using 10. 
 
    background(51);
 
@@ -177,7 +177,8 @@ if(solveInProgress){
       var pa = route.pop();
         noStroke();
         fill('rgba(0,255,0, 0.25)');
-        rect(pa.i*width_cell, pa.j*width_cell, width_cell, width_cell);
+        //rect(pa.i*width_cell, pa.j*width_cell, width_cell, width_cell);
+        ellipse(pa.i*width_cell+(width_cell/2), pa.j*width_cell+(width_cell/2), width_cell/2, width_cell/2);
     }
 
     infoText("Solution is along the green line starting top-left to bottom-right");
