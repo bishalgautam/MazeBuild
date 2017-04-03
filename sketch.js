@@ -15,6 +15,12 @@ Maze Generation :
 				Make it the current cell
 ******************************************************************************************
 ******************************************************************************************
+@paramters : 
+ @ can be changed to get desired result.
+  cols : no of colums
+  rows : no of rows
+  width_cell : width and height of a square cell
+  framerate : rate of rendering
 
 
 ******************************************************************************************
@@ -22,8 +28,8 @@ Maze Generation :
 */
 
 
-var cols = 10;
-var rows = 10;
+const cols = 10;
+const rows = 10;
 var width_cell = 20;
 var grid = [];
 
@@ -61,7 +67,7 @@ function setup() {
 // it runs just after the setup function and will continues forever until stopped.
 function draw() {
   
-   frameRate(10);
+   frameRate(5); // It can be changes to get slower or faster rate of rendering. In my walk through video I am using 10. 
 
    background(51);
 
